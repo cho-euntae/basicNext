@@ -12,6 +12,8 @@
 
 ## Window
 ### git config --global core.autocrlf true
+### git config --global core.autocrlf input
+
 
 ## Mac
 ### git config --global core.autocrlf input
