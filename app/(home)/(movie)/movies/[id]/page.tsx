@@ -1,19 +1,27 @@
 //노마더코더 API 주소 : nomad-movies.nomadcoders.workers.dev
 
 import { Suspense } from "react";
-import MovieInfo from "../../../../../components/movie-info";
+import MovieInfo, { getMovie } from "../../../../../components/movie-info";
 import MovieVideos from "../../../../../components/movie-videos";
 
+interface IParams {
+    params: {id: string};
+}
 
-
+export async function generateMetadata({params:{id}} : IParams){
+    // 최신 NextJs 에서 메타데이터 받을때 미리 데이터를 받아온다면
+    // 캐싱이 되기때문에 다시 fetch 하지 않는다. 그래서 더 빨리 사용자가 볼 수 있음.
+    const movie = await getMovie(id);
+    return {
+        title: movie.title
+    }
+}
 
 // export default function MovieDetail(props){
-export default async function MovieDetail(
+export default async function MovieDetailPage(
     {
         params:{id},
-    }:{
-        params: {id:string};
-    }){
+    }: IParams){
     // console.log("console props.params.id = "+props.params.id);
     // console.log(props);
     // console.log("start fetching");
